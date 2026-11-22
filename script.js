@@ -569,10 +569,17 @@ document.querySelectorAll(".mc-dialog").forEach((dialog) => {
     hurt:   { src: "images/golem/golem-hurt.png",   frames: 4,  fps: 10, loop: false },
     die:    { src: "images/golem/golem-die.png",    frames: 13, fps: 12, loop: false },
   };
-  // Preload all sheets so switching is instant
-  Object.values(ANIMS).forEach((a) => { new Image().src = a.src; });
+  // Load every sprite sheet once; frames are drawn from these images
+  Object.values(ANIMS).forEach((a) => {
+    a.img = new Image();
+    a.img.onload = () => { if (anim === a) draw(); };
+    a.img.src = a.src;
+  });
 
-  const scale = () => parseFloat(getComputedStyle(helper).getPropertyValue("--s")) || 3;
+  // The golem is a 90x64 canvas (CSS makes it bigger, pixel-sharp).
+  // A canvas can only ever show ONE frame, so the sheet can't "leak" like a background image.
+  const ctx = golem.getContext("2d");
+  ctx.imageSmoothingEnabled = false;
 
   // ---------------------------------------------------- sprite player
   // Driven by JS (not CSS), so the golem still breathes when Windows animations are off.
@@ -589,14 +596,14 @@ document.querySelectorAll(".mc-dialog").forEach((dialog) => {
     onDone = opts.onDone || null;
     frame = reverse ? anim.frames - 1 : 0;
     lastTick = 0;
-    const s = scale();
-    golem.style.backgroundImage = `url("${anim.src}")`;
-    golem.style.backgroundSize = `${anim.frames * FRAME_W * s}px ${FRAME_H * s}px`;
     draw();
   }
 
   function draw() {
-    golem.style.backgroundPosition = `${-frame * FRAME_W * scale()}px 0`;
+    ctx.clearRect(0, 0, FRAME_W, FRAME_H);
+    if (anim && anim.img.complete && anim.img.naturalWidth) {
+      ctx.drawImage(anim.img, frame * FRAME_W, 0, FRAME_W, FRAME_H, 0, 0, FRAME_W, FRAME_H);
+    }
   }
 
   function step() {
@@ -844,10 +851,6 @@ document.querySelectorAll(".mc-dialog").forEach((dialog) => {
   }
   wanderSoon();
   window.addEventListener("resize", () => {
-    if (anim) {                                   // rescale without restarting the animation
-      golem.style.backgroundSize = `${anim.frames * FRAME_W * scale()}px ${FRAME_H * scale()}px`;
-      draw();
-    }
     const max = window.innerWidth - helper.offsetWidth - 12;
     if (x > max) setX(Math.max(12, max));
   });
