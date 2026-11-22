@@ -875,3 +875,100 @@ document.querySelectorAll(".mc-dialog").forEach((dialog) => {
 
   load();
 })();
+
+// =========================================================
+// LIKES (hearts) — stored on our Cloudflare Worker
+// =========================================================
+(() => {
+  const LIKES_API = "https://varabuzz-likes.dowyclient.workers.dev";
+  const buttons = document.querySelectorAll("[data-like]");
+  const fmt = (n) => Number(n).toLocaleString("en-US");
+  const counts = {};
+  let total = 0;
+
+  function render() {
+    total = Object.values(counts).reduce((a, b) => a + b, 0);
+    const totalEl = document.getElementById("stat-likes");
+    if (totalEl) totalEl.textContent = fmt(total);
+    document.querySelectorAll("[data-likes]").forEach((el) => {
+      el.textContent = fmt(counts[el.dataset.likes] || 0);
+    });
+  }
+
+  function setLiked(btn, liked) {
+    btn.setAttribute("aria-pressed", liked ? "true" : "false");
+    btn.dataset.tooltip = liked
+      ? `Liked!|Click again to remove your like`
+      : `Like|Click the heart if you like ${btn.dataset.like}`;
+  }
+
+  function heartBurst(btn) {
+    if (reduceMotion) return;
+    const r = btn.getBoundingClientRect();
+    for (let i = 0; i < 10; i++) {
+      const b = document.createElement("div");
+      b.className = "like-burst";
+      const angle = (Math.PI * 2 * i) / 10;
+      b.style.left = r.left + 18 + "px";
+      b.style.top = r.top + r.height / 2 + "px";
+      b.style.background = i % 2 ? "#ff4f7b" : "#ffd1e6";
+      b.style.setProperty("--dx", Math.cos(angle) * 34 + "px");
+      b.style.setProperty("--dy", Math.sin(angle) * 34 + "px");
+      document.body.appendChild(b);
+      b.addEventListener("animationend", () => b.remove());
+    }
+  }
+
+  async function load() {
+    try {
+      const res = await fetch(`${LIKES_API}/likes`);
+      if (!res.ok) throw new Error(res.status);
+      const data = await res.json();
+      Object.assign(counts, data.counts);
+      buttons.forEach((btn) => setLiked(btn, data.liked.includes(btn.dataset.like)));
+      render();
+    } catch (e) {
+      document.querySelectorAll("#stat-likes, [data-likes]").forEach((el) => { el.textContent = "-"; });
+    }
+  }
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const plugin = btn.dataset.like;
+      const like = btn.getAttribute("aria-pressed") !== "true";
+      playClick();
+
+      // Update the screen right away, then confirm with the server
+      setLiked(btn, like);
+      counts[plugin] = Math.max(0, (counts[plugin] || 0) + (like ? 1 : -1));
+      render();
+      if (like) {
+        btn.classList.remove("pop");
+        void btn.offsetWidth;
+        btn.classList.add("pop");
+        heartBurst(btn);
+      }
+
+      btn.disabled = true;
+      try {
+        const res = await fetch(`${LIKES_API}/${like ? "like" : "unlike"}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ plugin }),
+        });
+        if (!res.ok) throw new Error(res.status);
+        const data = await res.json();
+        counts[plugin] = data.count;
+        setLiked(btn, data.liked);
+      } catch (e) {
+        // Server didn't accept it: undo on screen
+        setLiked(btn, !like);
+        counts[plugin] = Math.max(0, (counts[plugin] || 0) + (like ? -1 : 1));
+      }
+      btn.disabled = false;
+      render();
+    });
+  });
+
+  load();
+})();
