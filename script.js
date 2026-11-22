@@ -362,14 +362,14 @@ const VARAVAULTS = {
       id: "1.0.2",
       label: "v1.0.2 (Latest) - Minecraft 1.21.x",
       files: {
-        paper: "downloads/VaraVaults-1.0.2-Paper.jar",
+        paper: "https://github.com/v0idhere/vara.buzz/releases/download/v1.0.2/VaraVaults-1.0.2-Paper.jar",
       },
     },
     {
       id: "1.0.1",
       label: "v1.0.1 - Minecraft 1.21.x",
       files: {
-        paper: "downloads/VaraVaults-1.0.1-Paper.jar",
+        paper: "https://github.com/v0idhere/vara.buzz/releases/download/v1.0.1/VaraVaults-1.0.1-Paper.jar",
       },
     },
   ],
@@ -823,4 +823,55 @@ document.querySelectorAll(".mc-dialog").forEach((dialog) => {
     const max = window.innerWidth - helper.offsetWidth - 12;
     if (x > max) setX(Math.max(12, max));
   });
+})();
+
+// =========================================================
+// DOWNLOAD COUNTERS (real numbers from GitHub Releases)
+// =========================================================
+(() => {
+  const REPO = "v0idhere/vara.buzz";
+  const CACHE_KEY = "varaDownloadStats";
+  const CACHE_MS = 10 * 60 * 1000; // ask GitHub at most every 10 minutes per visitor
+
+  const fmt = (n) => n.toLocaleString("en-US");
+
+  function show(stats) {
+    const total = document.getElementById("stat-downloads");
+    if (total) {
+      total.textContent = fmt(stats.total);
+      total.classList.add("count-pop");
+    }
+    document.querySelectorAll("[data-downloads]").forEach((el) => {
+      el.textContent = fmt(stats.perPlugin[el.dataset.downloads] || 0);
+      el.classList.add("count-pop");
+    });
+  }
+
+  async function load() {
+    try {
+      const cached = JSON.parse(sessionStorage.getItem(CACHE_KEY) || "null");
+      if (cached && Date.now() - cached.time < CACHE_MS) return show(cached.stats);
+    } catch (e) {}
+
+    try {
+      const res = await fetch(`https://api.github.com/repos/${REPO}/releases?per_page=100`);
+      if (!res.ok) throw new Error("GitHub " + res.status);
+      const releases = await res.json();
+      const stats = { total: 0, perPlugin: {} };
+      releases.forEach((rel) => rel.assets.forEach((asset) => {
+        if (!asset.name.endsWith(".jar")) return;
+        // "VaraVaults-1.0.2-Paper.jar" -> plugin "VaraVaults"
+        const plugin = asset.name.split("-")[0];
+        stats.total += asset.download_count;
+        stats.perPlugin[plugin] = (stats.perPlugin[plugin] || 0) + asset.download_count;
+      }));
+      try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ time: Date.now(), stats })); } catch (e) {}
+      show(stats);
+    } catch (e) {
+      // GitHub unreachable: hide the numbers instead of showing wrong ones
+      document.querySelectorAll("#stat-downloads, [data-downloads]").forEach((el) => { el.textContent = "-"; });
+    }
+  }
+
+  load();
 })();
