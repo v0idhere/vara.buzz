@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vara's Plugins</title>
+  <link rel="icon" type="image/jpeg" href="images/logo.jpg" />
+  <meta name="description" content="Cute & powerful Minecraft plugins, crafted with love. Coming soon!" />
+
+  <!-- Link previews (Discord, Twitter/X, WhatsApp, etc.) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Vara's Plugins" />
+  <meta property="og:title" content="Vara's Plugins" />
+  <meta property="og:description" content="Cute & powerful Minecraft plugins, crafted with love. Coming soon!" />
+  <meta property="og:url" content="https://vara.buzz/" />
+  <meta property="og:image" content="https://vara.buzz/images/logo.jpg" />
+  <meta property="og:image:width" content="736" />
+  <meta property="og:image:height" content="736" />
+  <meta property="og:image:alt" content="Vara's Plugins logo" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Vara's Plugins" />
+  <meta name="twitter:description" content="Cute & powerful Minecraft plugins, crafted with love. Coming soon!" />
+  <meta name="twitter:image" content="https://vara.buzz/images/logo.jpg" />
+  <!-- Purple stripe on the side of the Discord embed -->
+  <meta name="theme-color" content="#8b5cf6" />
+  <!-- Minecraft-style fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Floating pixel particles -->
+  <div class="particles" aria-hidden="true"></div>
+
+  <!-- XP-style scroll progress bar -->
+  <div class="scroll-progress" aria-hidden="true"><div class="scroll-progress-fill"></div></div>
+
+  <header class="nav">
+    <a href="#" class="logo">
+      <img src="images/logo.jpg" alt="" class="logo-img" />
+      Vara's Plugins
+    </a>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#plugins">Plugins</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="hero-inner">
+      <img src="images/logo.jpg" alt="Vara's Plugins logo" class="hero-logo" />
+      <p class="splash">Coming Soon!</p>
+      <h1 class="title">
+        <span>VARA'S</span>
+        <span>PLUGINS</span>
+      </h1>
+      <p class="subtitle">Cute &amp; powerful Minecraft plugins, crafted with love.</p>
+      <div class="buttons">
+        <a href="#plugins" class="mc-btn" data-tooltip="Browse Plugins|Jump to the plugin list">Browse Plugins</a>
+        <a href="#about" class="mc-btn mc-btn-alt" data-tooltip="About|Who makes these plugins">About</a>
+      </div>
+    </div>
+    <a href="#plugins" class="scroll-hint" aria-label="Scroll down">Scroll<span>&#9660;</span></a>
+  </section>
+
+  <section id="plugins" class="section">
+    <h2 class="section-title">Plugins</h2>
+    <p class="section-sub">Our first plugin is out! More are being crafted...</p>
+
+    <div class="grid">
+      <article class="card card-released">
+        <span class="ribbon">New</span>
+        <img class="card-cover" src="images/varavaults.webp" alt="VaraVaults logo" loading="lazy" />
+        <h3>VaraVaults</h3>
+        <p>Player vaults with a pretty selector, custom icons and H2 / SQLite storage.</p>
+        <div class="tags">
+          <span>v1.0.2</span>
+          <span>Paper 1.21.x</span>
+          <span>LuckPerms</span>
+        </div>
+        <div class="card-actions">
+          <button type="button" class="mc-btn mc-btn-small" data-open="varavaults-details" data-tooltip="Download|Choose your platform">Download</button>
+          <button type="button" class="mc-btn mc-btn-small mc-btn-alt" data-open="varavaults-details" data-scroll="vv-info" data-tooltip="Details|Features, commands &amp; permissions">Details</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-icon icon-heart"></div>
+        <h3>Plugin #2</h3>
+        <p>Something awesome is being built here.</p>
+        <span class="badge" data-tooltip="Coming Soon|Still in the crafting table...">Coming Soon</span>
+      </article>
+
+      <article class="card">
+        <div class="card-icon icon-gem"></div>
+        <h3>Plugin #3</h3>
+        <p>Something awesome is being built here.</p>
+        <span class="badge" data-tooltip="Coming Soon|Still in the crafting table...">Coming Soon</span>
+      </article>
+
+      <article class="card">
+        <div class="card-icon icon-chest"></div>
+        <h3>Plugin #4</h3>
+        <p>Something awesome is being built here.</p>
+        <span class="badge" data-tooltip="Coming Soon|Still in the crafting table...">Coming Soon</span>
+      </article>
+    </div>
+  </section>
+
+  <section id="about" class="section about">
+    <h2 class="section-title">About</h2>
+    <div class="panel">
+      <p>
+        Welcome to <strong>Vara's Plugins</strong>! We make high quality Minecraft
+        server plugins. Our first plugin, <strong>VaraVaults</strong>, is out &mdash; more are on the way!
+      </p>
+      <div class="xp-bar"><div class="xp-fill"></div></div>
+      <p class="xp-label">Loading plugins... 42%</p>
+    </div>
+  </section>
+
+  <!-- VaraVaults download + details popup -->
+  <dialog id="varavaults-details" class="mc-dialog" aria-labelledby="vv-title">
+    <div class="dialog-head">
+      <img class="dialog-cover" src="images/varavaults.webp" alt="" />
+      <div>
+        <h3 id="vv-title">VaraVaults</h3>
+        <p class="dialog-sub">Player vaults for your Minecraft server</p>
+      </div>
+      <button type="button" class="dialog-close" aria-label="Close">&#10005;</button>
+    </div>
+
+    <div class="dialog-body">
+      <!-- Download picker -->
+      <h4>1. Choose your platform</h4>
+      <div class="platforms" role="radiogroup" aria-label="Platform">
+        <button type="button" class="platform" role="radio" data-platform="paper">Paper</button>
+        <button type="button" class="platform" role="radio" data-platform="bukkit">Bukkit / Spigot</button>
+        <button type="button" class="platform" role="radio" data-platform="folia">Folia</button>
+        <button type="button" class="platform" role="radio" data-platform="fabric">Fabric</button>
+        <button type="button" class="platform" role="radio" data-platform="forge">Forge</button>
+        <button type="button" class="platform" role="radio" data-platform="neoforge">NeoForge</button>
+        <button type="button" class="platform" role="radio" data-platform="bungeecord">BungeeCord</button>
+        <button type="button" class="platform" role="radio" data-platform="velocity">Velocity</button>
+        <button type="button" class="platform" role="radio" data-platform="waterfall">Waterfall</button>
+      </div>
+
+      <h4>2. Choose a version</h4>
+      <label class="version-pick">
+        <span class="sr-only">Plugin version</span>
+        <select id="vv-version"></select>
+      </label>
+
+      <div class="platform-status" id="vv-status" aria-live="polite"></div>
+
+      <h4>3. Required plugin</h4>
+      <a class="required-dep" href="https://modrinth.com/plugin/luckperms" target="_blank" rel="noopener" data-tooltip="LuckPerms|Opens Modrinth in a new tab">
+        <img src="images/luckperms.png" alt="" width="48" height="48" />
+        <span class="required-text">
+          <span class="required-name">LuckPerms <span class="required-badge">Required</span></span>
+          <span class="required-desc">VaraVaults won't start without it. Install it first!</span>
+        </span>
+        <span class="required-go">Get it &#10138;</span>
+      </a>
+
+      <div class="dialog-download">
+        <a id="vv-download" class="mc-btn" href="#" download>Download</a>
+      </div>
+
+      <!-- Details -->
+      <div id="vv-info">
+        <h4>About</h4>
+        <p>Give your players safe, good-looking vaults to store anything they want. Pink &amp; white colors with small caps text, fully editable in the config.</p>
+
+        <h4>Features</h4>
+        <ul>
+          <li><b>Vault selector</b> with pages, locked vaults and live slot counts</li>
+          <li><b>Custom icons</b> &mdash; Shift + Click a vault to pick its icon</li>
+          <li><b>H2 &amp; SQLite</b> storage, light and lag-free</li>
+          <li><b>LuckPerms</b> support &mdash; new vaults show up instantly</li>
+          <li><b>Dupe-safe</b> &mdash; owner and admin share the same live vault</li>
+          <li><b>PlugManX-safe</b> &mdash; open vaults are saved before /plugman reload, load, unload &amp; /reload</li>
+          <li>Every text, color, icon and sound is editable</li>
+        </ul>
+
+        <h4>Player commands</h4>
+        <ul class="cmd-list">
+          <li><code>/pv</code> <code>/vault</code> <code>/varavault</code> <span>Open the vault selector</span></li>
+          <li><code>/pv &lt;number&gt;</code> <span>Open a vault directly</span></li>
+        </ul>
+
+        <h4>Admin commands</h4>
+        <ul class="cmd-list">
+          <li><code>/pvadmin</code> <span>Admin help (same as /varavaultsadmin)</span></li>
+          <li><code>/pvadmin reload</code> <span>Reload the config</span></li>
+          <li><code>/pvadmin forceopen &lt;player&gt;</code> <span>Open the selector for a player</span></li>
+          <li><code>/pvadmin view &lt;player&gt; &lt;number&gt;</code> <span>View any player's vault (even offline)</span></li>
+        </ul>
+
+        <h4>Permissions</h4>
+        <ul class="cmd-list">
+          <li><code>varavaults.vault.&lt;number&gt;</code> <span>Access to that one vault (vault #1 is free by default)</span></li>
+          <li><code>varavaults.selector</code> <span>Open the selector &mdash; default: everyone</span></li>
+          <li><code>varavaults.openremote</code> <span>Use /pv &lt;number&gt; &mdash; default: everyone</span></li>
+          <li><code>varavaults.itempicker</code> <span>Change vault icons &mdash; default: everyone</span></li>
+          <li><code>varavaults.admin</code> <span>Admin commands &mdash; default: OP</span></li>
+          <li><code>varavaults.admin.edit</code> <span>Edit (not just view) other players' vaults</span></li>
+        </ul>
+
+        <h4>Requirements</h4>
+        <ul>
+          <li>Paper or Purpur <b>1.21.x</b> (Java 21)</li>
+          <li><b>LuckPerms</b> installed &mdash; <a href="https://modrinth.com/plugin/luckperms" target="_blank" rel="noopener">download it on Modrinth</a></li>
+        </ul>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Vara Helper: the purple crystal golem -->
+  <div class="helper" id="helper">
+    <div class="helper-bubble" id="helper-bubble" role="status" aria-live="polite" hidden>
+      <div class="helper-name">Vara Helper</div>
+      <p class="helper-text" id="helper-text"></p>
+      <div class="helper-menu" id="helper-menu" hidden>
+        <button type="button" data-action="plugins">&#9881; See plugins</button>
+        <button type="button" data-action="download">&#11015; Get VaraVaults</button>
+        <button type="button" data-action="top">&#11014; Back to top</button>
+        <button type="button" data-action="hide">&#9790; Hide helper</button>
+      </div>
+    </div>
+    <div class="golem" id="golem" aria-hidden="true"></div>
+    <button type="button" class="helper-hit" id="helper-hit" aria-label="Vara Helper: open the help menu"></button>
+  </div>
+  <button type="button" class="helper-call" id="helper-call" hidden data-tooltip="Vara Helper|Bring the golem back">&#10022; Helper</button>
+
+  <!-- Minecart that rides along the rail as you scroll -->
+  <div class="rail" aria-hidden="true">
+    <div class="rail-track"></div>
+    <div class="cart">
+      <img class="cart-cargo" src="images/logo.jpg" alt="" />
+      <div class="cart-body"></div>
+      <span class="wheel wheel-left"></span>
+      <span class="wheel wheel-right"></span>
+    </div>
+  </div>
+
+  <a href="#home" class="back-to-top" aria-label="Back to top" data-tooltip="Back to Top|Fly up to the start">&#9650;</a>
+
+  <footer class="footer">
+    <p>&copy; 2026 Vara's Plugins &middot; Not affiliated with Mojang or Microsoft.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1427 @@
+:root {
+  --purple-50: #f3ecff;
+  --purple-200: #d4c2ff;
+  --purple-300: #b18cff;
+  --purple-400: #8b5cf6;
+  --purple-500: #6d3fd1;
+  --purple-700: #43248f;
+  --purple-900: #1c0f3d;
+  --dark: #120a24;
+  --font-title: "Minecraft", "Press Start 2P", monospace;
+  --font-body: "Minecraft", "VT323", monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  font-size: 20px;
+  color: var(--purple-50);
+  background-color: var(--dark);
+  /* pixel grid background */
+  background-image:
+    linear-gradient(rgba(139, 92, 246, 0.06) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.06) 2px, transparent 2px);
+  background-size: 32px 32px;
+  image-rendering: pixelated;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ---------- Navbar ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  background: rgba(18, 10, 36, 0.9);
+  border-bottom: 4px solid var(--purple-400);
+  backdrop-filter: blur(4px);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-title);
+  font-size: 16px;
+  color: var(--purple-300);
+  text-shadow: 2px 2px 0 var(--purple-900);
+}
+
+.logo-block {
+  width: 24px;
+  height: 24px;
+  background:
+    linear-gradient(var(--purple-300) 0 0) 0 0 / 50% 50% no-repeat,
+    linear-gradient(var(--purple-500) 0 0) 100% 100% / 50% 50% no-repeat,
+    var(--purple-400);
+  box-shadow: inset -3px -3px 0 var(--purple-700), 0 0 0 2px #000;
+}
+
+.nav nav { display: flex; gap: 24px; }
+
+.nav nav a {
+  font-size: 22px;
+  color: var(--purple-200);
+  transition: color 0.15s;
+}
+
+.nav nav a:hover { color: #fff; text-shadow: 2px 2px 0 var(--purple-500); }
+
+/* ---------- Hero ---------- */
+.hero {
+  min-height: 88vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 60px 20px;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(139, 92, 246, 0.35), transparent 60%);
+}
+
+.hero-inner { position: relative; }
+
+.title {
+  font-family: var(--font-title);
+  font-size: clamp(36px, 8vw, 96px);
+  line-height: 1.15;
+  color: var(--purple-300);
+  text-shadow:
+    4px 4px 0 var(--purple-700),
+    8px 8px 0 var(--purple-900);
+  letter-spacing: 4px;
+}
+
+.title span { display: block; }
+.title span:last-child { color: var(--purple-50); }
+
+/* Minecraft-style yellow-ish splash text, but in purple */
+.splash {
+  position: absolute;
+  top: 10px;
+  right: -40px;
+  font-family: var(--font-title);
+  font-size: clamp(12px, 1.6vw, 18px);
+  color: #fff35c;
+  text-shadow: 2px 2px 0 #3f3f00;
+  transform: rotate(-18deg);
+  animation: splash 0.6s ease-in-out infinite alternate;
+  white-space: nowrap;
+}
+
+@keyframes splash {
+  from { transform: rotate(-18deg) scale(1); }
+  to   { transform: rotate(-18deg) scale(1.12); }
+}
+
+.subtitle {
+  margin-top: 28px;
+  font-size: 26px;
+  color: var(--purple-200);
+}
+
+.buttons {
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ---------- Minecraft button ---------- */
+.mc-btn {
+  display: inline-block;
+  min-width: 220px;
+  padding: 14px 28px;
+  font-family: var(--font-body);
+  font-size: 24px;
+  color: #fff;
+  text-shadow: 2px 2px 0 var(--purple-900);
+  background-color: var(--purple-500);
+  border: 3px solid #000;
+  box-shadow:
+    inset 3px 3px 0 var(--purple-300),
+    inset -3px -3px 0 var(--purple-700);
+  cursor: pointer;
+  transition: transform 0.08s;
+}
+
+.mc-btn:hover {
+  background-color: var(--purple-400);
+  outline: 3px solid #fff;
+  outline-offset: -3px;
+}
+
+.mc-btn:active { transform: translateY(2px); }
+
+.mc-btn-alt {
+  background-color: #352063;
+  box-shadow:
+    inset 3px 3px 0 #5a3f99,
+    inset -3px -3px 0 #1a0f38;
+}
+
+.mc-btn-alt:hover { background-color: #43287a; }
+
+/* ---------- Sections ---------- */
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  text-align: center;
+}
+
+.section-title {
+  font-family: var(--font-title);
+  font-size: clamp(24px, 4vw, 40px);
+  color: var(--purple-300);
+  text-shadow: 4px 4px 0 var(--purple-900);
+}
+
+.section-sub {
+  margin-top: 14px;
+  font-size: 24px;
+  color: var(--purple-200);
+}
+
+.grid {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 24px;
+}
+
+/* Inventory-slot style card */
+.card {
+  position: relative;
+  padding: 28px 20px;
+  background: #241544;
+  border: 4px solid #000;
+  box-shadow:
+    inset 4px 4px 0 #3f2a78,
+    inset -4px -4px 0 #120a24;
+  transition: transform 0.15s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    inset 4px 4px 0 var(--purple-400),
+    inset -4px -4px 0 var(--purple-700),
+    0 8px 0 rgba(0, 0, 0, 0.4);
+}
+
+.card h3 {
+  margin-top: 18px;
+  font-family: var(--font-title);
+  font-size: 15px;
+  color: var(--purple-50);
+}
+
+.card p {
+  margin-top: 12px;
+  color: var(--purple-200);
+  font-size: 20px;
+  filter: blur(0.6px);
+}
+
+.badge {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 6px 12px;
+  font-size: 18px;
+  color: #000;
+  background: #fff35c;
+  border: 3px solid #000;
+  box-shadow: inset -3px -3px 0 #c9b800;
+}
+
+/* Pixel art icons (pure CSS box-shadow) */
+.card-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.card-icon::before {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  top: 0;
+  left: 0;
+}
+
+.icon-heart::before {
+  box-shadow:
+    8px 8px var(--purple-400), 16px 8px var(--purple-400), 40px 8px var(--purple-400), 48px 8px var(--purple-400),
+    0 16px var(--purple-400), 8px 16px #fff, 16px 16px var(--purple-400), 24px 16px var(--purple-400), 32px 16px var(--purple-400), 40px 16px var(--purple-400), 48px 16px var(--purple-400), 56px 16px var(--purple-400),
+    0 24px var(--purple-400), 8px 24px var(--purple-400), 16px 24px var(--purple-400), 24px 24px var(--purple-400), 32px 24px var(--purple-400), 40px 24px var(--purple-400), 48px 24px var(--purple-400), 56px 24px var(--purple-500),
+    8px 32px var(--purple-400), 16px 32px var(--purple-400), 24px 32px var(--purple-400), 32px 32px var(--purple-400), 40px 32px var(--purple-400), 48px 32px var(--purple-500),
+    16px 40px var(--purple-400), 24px 40px var(--purple-400), 32px 40px var(--purple-400), 40px 40px var(--purple-500),
+    24px 48px var(--purple-500), 32px 48px var(--purple-500);
+}
+
+.icon-sword::before {
+  box-shadow:
+    48px 0 #e6e6e6, 56px 0 #e6e6e6,
+    40px 8px #e6e6e6, 48px 8px #fff, 56px 8px #e6e6e6,
+    32px 16px #e6e6e6, 40px 16px #fff, 48px 16px #e6e6e6,
+    24px 24px #e6e6e6, 32px 24px #fff, 40px 24px #e6e6e6,
+    0 32px var(--purple-700), 16px 32px #e6e6e6, 24px 32px #fff, 32px 32px #e6e6e6,
+    8px 40px var(--purple-700), 16px 40px var(--purple-400),
+    8px 48px var(--purple-400), 16px 48px var(--purple-700),
+    0 56px var(--purple-500);
+}
+
+.icon-gem::before {
+  box-shadow:
+    16px 8px var(--purple-200), 24px 8px var(--purple-200), 32px 8px var(--purple-300), 40px 8px var(--purple-300),
+    8px 16px var(--purple-200), 16px 16px #fff, 24px 16px var(--purple-300), 32px 16px var(--purple-300), 40px 16px var(--purple-400), 48px 16px var(--purple-400),
+    8px 24px var(--purple-300), 16px 24px var(--purple-300), 24px 24px var(--purple-300), 32px 24px var(--purple-400), 40px 24px var(--purple-400), 48px 24px var(--purple-500),
+    16px 32px var(--purple-300), 24px 32px var(--purple-400), 32px 32px var(--purple-400), 40px 32px var(--purple-500),
+    24px 40px var(--purple-400), 32px 40px var(--purple-500),
+    24px 48px var(--purple-500), 32px 48px var(--purple-700);
+}
+
+.icon-chest::before {
+  box-shadow:
+    8px 8px #6b3a1e, 16px 8px #6b3a1e, 24px 8px #6b3a1e, 32px 8px #6b3a1e, 40px 8px #6b3a1e, 48px 8px #6b3a1e,
+    8px 16px #a0602c, 16px 16px #a0602c, 24px 16px #a0602c, 32px 16px #a0602c, 40px 16px #a0602c, 48px 16px #a0602c,
+    8px 24px #000, 16px 24px #000, 24px 24px #fff35c, 32px 24px #fff35c, 40px 24px #000, 48px 24px #000,
+    8px 32px #a0602c, 16px 32px #a0602c, 24px 32px #fff35c, 32px 32px #fff35c, 40px 32px #a0602c, 48px 32px #a0602c,
+    8px 40px #a0602c, 16px 40px #a0602c, 24px 40px #a0602c, 32px 40px #a0602c, 40px 40px #a0602c, 48px 40px #a0602c,
+    8px 48px #6b3a1e, 16px 48px #6b3a1e, 24px 48px #6b3a1e, 32px 48px #6b3a1e, 40px 48px #6b3a1e, 48px 48px #6b3a1e;
+}
+
+/* ---------- About ---------- */
+.panel {
+  margin: 40px auto 0;
+  max-width: 720px;
+  padding: 32px;
+  background: #c6c6c6;
+  color: #3f3f3f;
+  border: 4px solid #000;
+  box-shadow: inset 4px 4px 0 #fff, inset -4px -4px 0 #555;
+  font-size: 24px;
+  text-align: left;
+}
+
+.panel strong { color: var(--purple-500); }
+
+.xp-bar {
+  margin-top: 24px;
+  height: 20px;
+  background: #2a2a2a;
+  border: 3px solid #000;
+}
+
+.xp-fill {
+  height: 100%;
+  width: 0;
+  background: repeating-linear-gradient(90deg, var(--purple-400) 0 18px, var(--purple-300) 18px 20px);
+  animation: fill 2.5s ease-out forwards;
+}
+
+@keyframes fill { to { width: 42%; } }
+
+.xp-label {
+  margin-top: 8px;
+  text-align: center;
+  color: var(--purple-700);
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  padding: 28px;
+  text-align: center;
+  font-size: 18px;
+  color: var(--purple-200);
+  border-top: 4px solid var(--purple-400);
+  background: #0b0618;
+}
+
+/* ---------- Particles ---------- */
+.particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  bottom: -20px;
+  width: 8px;
+  height: 8px;
+  background: var(--purple-300);
+  opacity: 0.6;
+  animation: rise linear forwards;
+}
+
+@keyframes rise {
+  to { transform: translateY(-110vh); opacity: 0; }
+}
+
+.nav, section, footer { position: relative; z-index: 1; }
+.nav { position: sticky; z-index: 20; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 640px) {
+  .nav { flex-direction: column; gap: 12px; padding: 14px; }
+  .splash { right: 0; top: -20px; }
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+/* Hero title: blocks drop in one after another, then bob gently */
+.title span {
+  opacity: 0;
+  animation: dropIn 0.7s cubic-bezier(.2, 1.6, .4, 1) forwards, bob 3s ease-in-out 1.4s infinite;
+}
+.title span:last-child { animation-delay: 0.25s, 1.65s; }
+
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-120px) scale(1.3); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* Subtitle and buttons fade up after the title */
+.subtitle, .buttons {
+  opacity: 0;
+  animation: fadeUp 0.6s ease-out forwards;
+}
+.subtitle { animation-delay: 0.7s; }
+.buttons  { animation-delay: 0.9s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Typing cursor after the subtitle */
+.subtitle::after {
+  content: "_";
+  margin-left: 4px;
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Hero glow slowly pulses */
+.hero { animation: glow 5s ease-in-out infinite; }
+@keyframes glow {
+  0%, 100% { background-size: 100% 100%; }
+  50%      { background-size: 120% 120%; }
+}
+
+/* Background grid slowly scrolls */
+body { animation: gridMove 20s linear infinite; }
+@keyframes gridMove { to { background-position: 32px 32px, 32px 32px; } }
+
+/* Logo block spins on hover */
+.logo-block { transition: transform 0.5s; }
+.logo:hover .logo-block { transform: rotate(360deg) scale(1.2); }
+
+/* Nav links: pixel underline grows */
+.nav nav a { position: relative; }
+.nav nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 3px;
+  background: var(--purple-400);
+  transition: width 0.2s steps(4);
+}
+.nav nav a:hover::after { width: 100%; }
+
+/* Buttons: bounce on hover + shine sweep */
+.mc-btn { position: relative; overflow: hidden; }
+.mc-btn:hover { animation: btnBounce 0.4s; }
+.mc-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.35);
+  transform: skewX(-20deg);
+}
+.mc-btn:hover::before { animation: shine 0.6s; }
+
+@keyframes btnBounce {
+  0%, 100% { transform: translateY(0); }
+  40%      { transform: translateY(-6px); }
+  70%      { transform: translateY(2px); }
+}
+@keyframes shine { to { left: 130%; } }
+
+/* Card icons float; spin-wiggle on hover */
+.card-icon { animation: float 2.4s ease-in-out infinite; }
+.card:nth-child(2) .card-icon { animation-delay: 0.3s; }
+.card:nth-child(3) .card-icon { animation-delay: 0.6s; }
+.card:nth-child(4) .card-icon { animation-delay: 0.9s; }
+.card:hover .card-icon { animation: wiggle 0.5s ease-in-out; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0) scale(1.1); }
+  25%      { transform: rotate(-12deg) scale(1.2); }
+  75%      { transform: rotate(12deg) scale(1.2); }
+}
+
+/* Coming Soon badges pulse */
+.badge { animation: pulse 1.6s ease-in-out infinite; }
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.08); }
+}
+
+/* Section titles shimmer between purples */
+.section-title { animation: shimmer 3s ease-in-out infinite; }
+@keyframes shimmer {
+  0%, 100% { color: var(--purple-300); }
+  50%      { color: var(--purple-200); }
+}
+
+/* Scroll reveal (JS adds .visible) */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px) scale(0.96);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* XP bar only fills once About is on screen */
+.xp-fill { animation-play-state: paused; }
+.about.visible .xp-fill,
+.panel.visible .xp-fill { animation-play-state: running; }
+
+/* Click burst + cursor trail pixels */
+.burst, .trail {
+  position: fixed;
+  pointer-events: none;
+  z-index: 50;
+}
+.burst {
+  width: 8px;
+  height: 8px;
+  animation: burst 0.7s ease-out forwards;
+}
+@keyframes burst {
+  to { transform: translate(var(--dx), var(--dy)) scale(0.3); opacity: 0; }
+}
+.trail {
+  width: 6px;
+  height: 6px;
+  background: var(--purple-300);
+  animation: trailFade 0.6s linear forwards;
+}
+@keyframes trailFade {
+  to { transform: translateY(14px) scale(0); opacity: 0; }
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .title span, .subtitle, .buttons, .reveal { opacity: 1; transform: none; }
+  .xp-fill { width: 42%; }
+}
+
+/* Keep the card hover lift working after scroll reveal */
+.card.reveal.visible:hover { transform: translateY(-6px); transition-delay: 0s; }
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+.logo-img {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #000;
+  box-shadow: 0 0 0 2px var(--purple-400);
+  image-rendering: auto;
+  transition: transform 0.5s;
+}
+.logo:hover .logo-img { transform: rotate(360deg) scale(1.15); }
+
+.hero-logo {
+  display: block;
+  width: clamp(120px, 18vw, 180px);
+  height: auto;
+  margin: 0 auto 28px;
+  border: 4px solid #000;
+  box-shadow:
+    0 0 0 4px var(--purple-400),
+    8px 8px 0 4px var(--purple-900),
+    0 0 60px rgba(139, 92, 246, 0.6);
+  opacity: 0;
+  animation: logoIn 0.8s cubic-bezier(.2, 1.6, .4, 1) forwards, float 3s ease-in-out 0.8s infinite;
+}
+@keyframes logoIn {
+  from { opacity: 0; transform: scale(0) rotate(-90deg); }
+  to   { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+/* Pixel "hills" along the bottom of the hero, like in the logo art */
+.hero { overflow: hidden; }
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 96px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--purple-700) 0 0) 0% 100% / 8% 70% no-repeat,
+    linear-gradient(var(--purple-500) 0 0) 8% 100% / 6% 45% no-repeat,
+    linear-gradient(var(--purple-700) 0 0) 14% 100% / 10% 85% no-repeat,
+    linear-gradient(var(--purple-500) 0 0) 24% 100% / 7% 35% no-repeat,
+    linear-gradient(var(--purple-900) 0 0) 31% 100% / 12% 55% no-repeat,
+    linear-gradient(var(--purple-500) 0 0) 43% 100% / 9% 25% no-repeat,
+    linear-gradient(var(--purple-700) 0 0) 52% 100% / 8% 40% no-repeat,
+    linear-gradient(var(--purple-900) 0 0) 60% 100% / 11% 65% no-repeat,
+    linear-gradient(var(--purple-500) 0 0) 71% 100% / 6% 50% no-repeat,
+    linear-gradient(var(--purple-700) 0 0) 77% 100% / 9% 90% no-repeat,
+    linear-gradient(var(--purple-500) 0 0) 86% 100% / 6% 45% no-repeat,
+    linear-gradient(var(--purple-700) 0 0) 100% 100% / 8% 75% no-repeat;
+  opacity: 0.7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo { opacity: 1; }
+}
+
+/* =========================================================
+   SCROLL ANIMATIONS
+   ========================================================= */
+
+/* XP-style progress bar along the very top */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  z-index: 30;
+  background: rgba(0, 0, 0, 0.5);
+}
+.scroll-progress-fill {
+  height: 100%;
+  width: 0;
+  background: repeating-linear-gradient(90deg, var(--purple-400) 0 14px, var(--purple-300) 14px 16px);
+  box-shadow: 0 0 10px var(--purple-400);
+}
+
+/* Navbar shrinks and darkens once you scroll */
+.nav { transition: padding 0.25s, background 0.25s, box-shadow 0.25s; }
+.nav.scrolled {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  background: rgba(10, 5, 22, 0.97);
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.35);
+}
+
+/* Highlight the nav link for the section you're in */
+.nav nav a.active { color: #fff; }
+.nav nav a.active::after { width: 100%; }
+
+/* Parallax: hero content drifts up and fades, hills move slower */
+.hero-inner {
+  transform: translateY(calc(var(--sy, 0) * 0.35px));
+  opacity: calc(1 - var(--sy, 0) / 600);
+  will-change: transform, opacity;
+}
+.hero::after { transform: translateY(calc(var(--sy, 0) * -0.12px)); }
+
+/* Bouncing "Scroll" hint at the bottom of the hero */
+.scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  text-shadow: 2px 2px 0 #000;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 20px;
+  color: var(--purple-200);
+  transform: translateX(-50%);
+  opacity: 0;
+  animation: fadeUp 0.6s ease-out 1.4s forwards;
+  transition: opacity 0.3s;
+}
+.scroll-hint span { animation: hintBounce 1.2s ease-in-out infinite; }
+.scroll-hint.hidden { opacity: 0 !important; pointer-events: none; }
+@keyframes hintBounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(8px); }
+}
+
+/* Cards get "placed" like blocks: flip down from above */
+.card.reveal {
+  transform: perspective(700px) rotateX(-70deg) translateY(-40px) scale(0.9);
+  transform-origin: top center;
+  transition: opacity 0.6s ease-out, transform 0.7s cubic-bezier(.2, 1.4, .4, 1);
+}
+.card.reveal.visible { transform: none; }
+
+/* Section subtitle slides in from the side */
+.section-sub.reveal { transform: translateX(-60px); }
+.section-sub.reveal.visible { transform: none; }
+
+/* About panel zooms in like an opened inventory */
+.panel.reveal { transform: scale(0.6); transition: opacity 0.5s, transform 0.5s cubic-bezier(.2, 1.5, .4, 1); }
+.panel.reveal.visible { transform: none; }
+
+/* Section titles: each letter pops in one by one */
+.section-title .letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(-40px) rotate(-20deg);
+}
+.section-title.visible .letter {
+  animation: letterPop 0.5s cubic-bezier(.2, 1.8, .4, 1) forwards;
+  animation-delay: calc(var(--i) * 0.06s);
+}
+@keyframes letterPop {
+  to { opacity: 1; transform: none; }
+}
+
+/* Back-to-top block button */
+.back-to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 25;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  color: #fff;
+  background-color: var(--purple-500);
+  border: 3px solid #000;
+  box-shadow: inset 3px 3px 0 var(--purple-300), inset -3px -3px 0 var(--purple-700);
+  opacity: 0;
+  transform: translateY(80px) rotate(90deg);
+  transition: opacity 0.3s, transform 0.4s cubic-bezier(.2, 1.5, .4, 1);
+  pointer-events: none;
+}
+.back-to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+.back-to-top:hover { background-color: var(--purple-400); animation: btnBounce 0.4s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .section-title .letter, .scroll-hint { opacity: 1; transform: none; }
+  .hero-inner { transform: none; opacity: 1; }
+  .card.reveal, .section-sub.reveal, .panel.reveal { transform: none; opacity: 1; }
+}
+
+/* =========================================================
+   MINECRAFT BUTTON EFFECTS
+   ========================================================= */
+
+/* Pixel "stone" texture, tinted purple, on every block button */
+.mc-btn, .back-to-top {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' shape-rendering='crispEdges'%3E%3Cg fill='%23000' fill-opacity='.14'%3E%3Crect x='0' y='0' width='4' height='4'/%3E%3Crect x='12' y='4' width='4' height='4'/%3E%3Crect x='24' y='0' width='4' height='4'/%3E%3Crect x='8' y='12' width='4' height='4'/%3E%3Crect x='20' y='16' width='4' height='4'/%3E%3Crect x='4' y='24' width='4' height='4'/%3E%3Crect x='16' y='28' width='4' height='4'/%3E%3Crect x='28' y='20' width='4' height='4'/%3E%3C/g%3E%3Cg fill='%23fff' fill-opacity='.12'%3E%3Crect x='4' y='4' width='4' height='4'/%3E%3Crect x='20' y='8' width='4' height='4'/%3E%3Crect x='0' y='16' width='4' height='4'/%3E%3Crect x='12' y='20' width='4' height='4'/%3E%3Crect x='24' y='28' width='4' height='4'/%3E%3Crect x='28' y='8' width='4' height='4'/%3E%3C/g%3E%3C/svg%3E");
+  image-rendering: pixelated;
+}
+
+/* Thick 3D block edge underneath, pressed in when clicked */
+.mc-btn {
+  box-shadow:
+    inset 3px 3px 0 var(--purple-300),
+    inset -3px -3px 0 var(--purple-700),
+    0 6px 0 #000;
+  transition: transform 0.06s, box-shadow 0.06s, color 0.1s;
+}
+.mc-btn-alt {
+  box-shadow:
+    inset 3px 3px 0 #5a3f99,
+    inset -3px -3px 0 #1a0f38,
+    0 6px 0 #000;
+}
+
+/* Hover like Minecraft's menu: white outline + yellow text */
+.mc-btn:hover {
+  animation: none;
+  color: #ffffa0;
+  text-shadow: 2px 2px 0 #3f3f28;
+  outline: 3px solid #fff;
+  outline-offset: -3px;
+}
+
+/* Pressed: the block sinks into the ground */
+.mc-btn:active {
+  transform: translateY(6px);
+  box-shadow:
+    inset -3px -3px 0 var(--purple-300),
+    inset 3px 3px 0 var(--purple-700),
+    0 0 0 #000;
+}
+.back-to-top:active { transform: translateY(4px); }
+
+/* Mining cracks that grow while the mouse is held down */
+.mc-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' shape-rendering='crispEdges'%3E%3Cg fill='%23000' fill-opacity='.55'%3E%3Crect x='18' y='4' width='4' height='4'/%3E%3Crect x='14' y='8' width='4' height='4'/%3E%3Crect x='18' y='12' width='4' height='4'/%3E%3Crect x='22' y='16' width='4' height='4'/%3E%3Crect x='14' y='20' width='4' height='4'/%3E%3Crect x='10' y='24' width='4' height='4'/%3E%3Crect x='26' y='20' width='4' height='4'/%3E%3Crect x='30' y='24' width='4' height='4'/%3E%3Crect x='18' y='28' width='4' height='4'/%3E%3Crect x='6' y='14' width='4' height='4'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 40px 40px;
+}
+.mc-btn:active::after { animation: crack 0.6s steps(4) forwards; }
+@keyframes crack {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Minecraft-style item tooltip that follows the cursor */
+.mc-tooltip {
+  position: fixed;
+  z-index: 100;
+  pointer-events: none;
+  padding: 6px 10px 8px;
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.3;
+  color: #fff;
+  text-shadow: 2px 2px 0 #3f3f3f;
+  background: rgba(16, 0, 16, 0.94);
+  border: 3px solid;
+  border-image: linear-gradient(#5000ff, #28007f) 1;
+  box-shadow: 0 0 0 3px rgba(16, 0, 16, 0.94);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.08s;
+}
+.mc-tooltip.show { opacity: 1; }
+.mc-tooltip .lore { color: #aaaaaa; }
+
+.badge { cursor: help; }
+
+/* Falling block pieces when a button is clicked */
+.block-chunk {
+  position: fixed;
+  z-index: 60;
+  pointer-events: none;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+/* =========================================================
+   SCROLL DIRECTION ANIMATIONS (up vs down)
+   ========================================================= */
+
+/* Scrolling UP: things come in from above instead of below */
+body.scroll-up .reveal:not(.visible) {
+  transform: translateY(-40px) scale(0.96);
+}
+body.scroll-up .card.reveal:not(.visible) {
+  transform: perspective(700px) rotateX(70deg) translateY(40px) scale(0.9);
+  transform-origin: bottom center;
+}
+body.scroll-up .section-sub.reveal:not(.visible) {
+  transform: translateX(60px);
+}
+body.scroll-up .section-title:not(.visible) .letter {
+  transform: translateY(40px) rotate(20deg);
+}
+
+/* Menu hides while scrolling down, slides back when scrolling up */
+.nav {
+  transition: padding 0.25s, background 0.25s, box-shadow 0.25s, transform 0.3s ease;
+}
+.nav.nav-hidden { transform: translateY(-110%); }
+
+/* Speed "wobble": the card grid and panel lean with how fast you scroll */
+.grid,
+.panel {
+  transform: skewY(calc(var(--skew, 0) * 1deg));
+}
+.panel.reveal.visible { transform: skewY(calc(var(--skew, 0) * 1deg)); }
+
+/* Floating pixels get pushed the opposite way you scroll */
+.particles {
+  transform: translateY(calc(var(--push, 0) * 1px));
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .grid, .panel, .particles, .nav.nav-hidden { transform: none !important; }
+}
+
+/* Stop the browser nudging the scroll when the menu shrinks
+   (that nudge looked like a fake "scroll up") */
+html { overflow-anchor: none; }
+
+
+/* =========================================================
+   MINECART SCROLL RIDE
+   ========================================================= */
+.rail {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 54px;
+  z-index: 24;
+  pointer-events: none;
+}
+
+/* Rail: two steel lines on wooden ties */
+.rail-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 12px;
+  background:
+    linear-gradient(#9a9a9a 0 0) 0 2px / 100% 2px no-repeat,
+    linear-gradient(#6b6b6b 0 0) 0 4px / 100% 1px no-repeat,
+    repeating-linear-gradient(90deg, #6b4423 0 8px, transparent 8px 20px) 0 6px / 100% 6px no-repeat,
+    rgba(11, 6, 24, 0.85);
+  border-top: 2px solid #000;
+}
+
+/* The cart */
+.cart {
+  position: absolute;
+  left: 0;
+  bottom: 10px;
+  width: 56px;
+  height: 42px;
+  transform: translateX(var(--cart-x, 0px)) rotate(var(--cart-tilt, 0deg));
+  transform-origin: 50% 100%;
+  will-change: transform;
+}
+
+.cart-body {
+  position: absolute;
+  left: 0;
+  bottom: 6px;
+  width: 56px;
+  height: 22px;
+  background:
+    linear-gradient(#3b3b3b 0 0) 6px 4px / 44px 6px no-repeat, /* dark inside */
+    #8d8d8d;
+  border: 3px solid #000;
+  box-shadow: inset 3px 3px 0 #c6c6c6, inset -3px -3px 0 #555;
+}
+
+/* Your logo cube riding in the cart */
+.cart-cargo {
+  position: absolute;
+  left: 14px;
+  bottom: 18px;
+  width: 26px;
+  height: 26px;
+  border: 2px solid #000;
+  image-rendering: auto;
+}
+
+.wheel {
+  position: absolute;
+  bottom: 0;
+  width: 14px;
+  height: 14px;
+  background:
+    linear-gradient(#000 0 0) center / 4px 100% no-repeat,   /* spokes */
+    linear-gradient(#000 0 0) center / 100% 4px no-repeat,
+    #4a4a4a;
+  border: 2px solid #000;
+  transform: rotate(var(--wheel-spin, 0deg));
+}
+.wheel-left { left: 6px; }
+.wheel-right { right: 6px; }
+
+/* Little bounce while rolling */
+.cart.rolling .cart-body,
+.cart.rolling .cart-cargo { animation: cartBounce 0.18s steps(2) infinite; }
+@keyframes cartBounce {
+  50% { transform: translateY(-2px); }
+}
+
+/* Sparks from the wheels when you scroll fast */
+.spark {
+  position: fixed;
+  z-index: 25;
+  width: 4px;
+  height: 4px;
+  pointer-events: none;
+  animation: spark 0.45s ease-out forwards;
+}
+@keyframes spark {
+  to { transform: translate(var(--sx), var(--sy)); opacity: 0; }
+}
+
+/* Keep the back-to-top button above the rail */
+.back-to-top { bottom: 64px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cart.rolling .cart-body,
+  .cart.rolling .cart-cargo { animation: none !important; }
+  /* The cart still follows your scroll: it only moves when you move */
+  .cart { transform: translateX(var(--cart-x, 0px)) !important; }
+  .wheel { transform: rotate(var(--wheel-spin, 0deg)) !important; }
+}
+
+/* Room for the rail so it never covers the footer text */
+.footer { padding-bottom: 72px; }
+
+/* =========================================================
+   RELEASED PLUGIN CARD + DETAILS POPUP
+   ========================================================= */
+.card-released {
+  box-shadow:
+    inset 4px 4px 0 var(--purple-400),
+    inset -4px -4px 0 var(--purple-700),
+    0 0 24px rgba(139, 92, 246, 0.45);
+}
+.card-released p { filter: none; }
+
+.ribbon {
+  position: absolute;
+  top: 10px;
+  left: -6px;
+  padding: 2px 10px;
+  font-size: 16px;
+  color: #000;
+  background: #fff35c;
+  border: 3px solid #000;
+  box-shadow: inset -3px -3px 0 #c9b800;
+  transform: rotate(-8deg);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+.tags {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+.tags span {
+  padding: 2px 8px;
+  font-size: 16px;
+  color: var(--purple-50);
+  background: var(--purple-900);
+  border: 2px solid var(--purple-500);
+}
+
+.card-actions {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.mc-btn-small {
+  min-width: 0;
+  padding: 8px 14px;
+  font-size: 20px;
+}
+button.mc-btn { font-family: var(--font-body); }
+
+/* Popup window, styled like a Minecraft tooltip */
+.mc-dialog {
+  width: min(680px, 92vw);
+  max-height: 86vh;
+  padding: 0;
+  color: var(--purple-50);
+  font-family: var(--font-body);
+  background: rgba(16, 0, 24, 0.97);
+  border: 4px solid;
+  border-image: linear-gradient(var(--purple-400), var(--purple-700)) 1;
+  box-shadow: 0 0 0 4px #000, 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+.mc-dialog[open] {
+  display: flex;
+  flex-direction: column;
+  animation: dialogIn 0.35s cubic-bezier(.2, 1.5, .4, 1);
+}
+.mc-dialog::backdrop {
+  background: rgba(8, 3, 18, 0.75);
+  backdrop-filter: blur(3px);
+}
+@keyframes dialogIn {
+  from { opacity: 0; transform: scale(0.7) translateY(30px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.dialog-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  border-bottom: 3px solid var(--purple-700);
+}
+.dialog-icon { margin: 0; flex: none; animation: none; }
+.dialog-head h3 {
+  font-family: var(--font-title);
+  font-size: 22px;
+  color: var(--purple-300);
+  text-shadow: 3px 3px 0 var(--purple-900);
+}
+.dialog-sub { font-size: 18px; color: var(--purple-200); margin-top: 6px; }
+.dialog-close {
+  margin-left: auto;
+  align-self: flex-start;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  color: #fff;
+  background: var(--purple-500);
+  border: 3px solid #000;
+  box-shadow: inset 3px 3px 0 var(--purple-300), inset -3px -3px 0 var(--purple-700);
+  cursor: pointer;
+}
+.dialog-close:hover { background: var(--purple-400); color: #ffffa0; }
+
+.dialog-body {
+  padding: 16px 22px 8px;
+  overflow-y: auto;
+  font-size: 20px;
+  line-height: 1.35;
+  text-align: left;
+}
+.dialog-body h4 {
+  margin: 18px 0 8px;
+  font-family: var(--font-title);
+  font-size: 14px;
+  color: var(--purple-300);
+}
+.dialog-body ul { list-style: none; }
+.dialog-body li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 6px;
+  color: var(--purple-50);
+}
+.dialog-body li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 8px;
+  height: 8px;
+  background: var(--purple-400);
+}
+.dialog-body b { color: #fff; }
+.cmd-list li span { display: block; color: var(--purple-200); font-size: 18px; }
+.dialog-body code {
+  display: inline-block;
+  margin: 0 4px 2px 0;
+  padding: 0 6px;
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: #fff35c;
+  background: #000;
+  border: 1px solid var(--purple-700);
+}
+.dialog-foot {
+  padding: 16px 20px 20px;
+  text-align: center;
+  border-top: 3px solid var(--purple-700);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mc-dialog[open] { animation: none; }
+}
+
+/* Center the popup (the global margin reset removes the browser's centering) */
+.mc-dialog { margin: auto; }
+
+/* Plugin cover image on the card */
+.card-cover {
+  display: block;
+  width: 100%;
+  max-width: 180px;
+  aspect-ratio: 1;
+  margin: 6px auto 0;
+  object-fit: cover;
+  border: 3px solid #000;
+  box-shadow: 0 0 0 3px var(--purple-500), 0 6px 0 3px #000;
+  transition: transform 0.2s;
+}
+.card-released:hover .card-cover { transform: scale(1.04) rotate(-1deg); }
+
+.dialog-cover {
+  width: 72px;
+  height: 72px;
+  flex: none;
+  border: 3px solid #000;
+  box-shadow: 0 0 0 2px var(--purple-500);
+}
+
+/* Platform picker */
+.platforms {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+}
+.platform {
+  position: relative;
+  padding: 10px 8px 14px;
+  font-family: var(--font-body);
+  font-size: 19px;
+  color: var(--purple-50);
+  background: #241544;
+  border: 3px solid #000;
+  box-shadow: inset 3px 3px 0 #3f2a78, inset -3px -3px 0 #120a24;
+  cursor: pointer;
+  transition: transform 0.08s, background 0.12s;
+}
+.platform::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1px;
+  font-size: 13px;
+  color: var(--purple-200);
+  opacity: 0.85;
+}
+.platform:hover { background: #2f1c58; color: #ffffa0; }
+.platform:active { transform: translateY(2px); }
+.platform.is-ok::after { color: #7dff9b; }
+.platform.is-soon { color: #b9aed6; }
+.platform.is-proxy { color: #b9aed6; }
+.platform[aria-checked="true"] {
+  color: #fff;
+  background: var(--purple-500);
+  box-shadow: inset 3px 3px 0 var(--purple-300), inset -3px -3px 0 var(--purple-700), 0 0 0 3px #fff;
+}
+.platform[aria-checked="true"]::after { color: #fff; }
+
+/* Version dropdown */
+.version-pick select {
+  width: 100%;
+  padding: 8px 10px;
+  font-family: var(--font-body);
+  font-size: 20px;
+  color: var(--purple-50);
+  background: #000;
+  border: 3px solid var(--purple-500);
+  cursor: pointer;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* Status message under the picker */
+.platform-status {
+  margin-top: 14px;
+  padding: 10px 12px;
+  font-size: 19px;
+  border: 3px solid;
+  border-color: var(--purple-700);
+  background: #120a24;
+}
+.platform-status.ok { border-color: #2f8f4a; }
+.platform-status.ok b { color: #7dff9b; }
+.platform-status.soon b { color: #fff35c; }
+.platform-status.proxy b { color: #8fd3ff; }
+
+.dialog-download {
+  margin: 16px 0 6px;
+  text-align: center;
+}
+.mc-btn.is-disabled {
+  cursor: not-allowed;
+  filter: grayscale(0.85) brightness(0.8);
+}
+.mc-btn.is-disabled:hover { outline: none; color: #fff; }
+
+#vv-info { margin-top: 18px; padding-top: 6px; border-top: 3px dashed var(--purple-700); }
+
+/* =========================================================
+   VARA HELPER (purple crystal golem)
+   ========================================================= */
+.helper {
+  --s: 3;                              /* pixel scale */
+  position: fixed;
+  left: 0;
+  bottom: 8px;                         /* stands on the rail */
+  width: calc(90px * var(--s));
+  height: calc(64px * var(--s));
+  z-index: 26;
+  pointer-events: none;
+  transform: translateX(var(--hx, 12px));
+}
+
+.golem {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-image: url("images/golem/golem-idle.png");
+  image-rendering: pixelated;
+  transform: scaleX(var(--face, 1));
+  filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.55));
+}
+
+/* Clickable area around the golem's body only */
+.helper-hit {
+  position: absolute;
+  left: 28%;
+  bottom: 0;
+  width: 44%;
+  height: 62%;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.helper-hit:focus-visible { outline: 3px dashed #fff35c; outline-offset: 2px; }
+
+/* Speech bubble, Minecraft tooltip style */
+.helper-bubble {
+  position: absolute;
+  left: calc(28px * var(--s));
+  bottom: calc(44px * var(--s));
+  width: 270px;
+  padding: 10px 12px 12px;
+  pointer-events: auto;
+  font-family: var(--font-body);
+  font-size: 19px;
+  line-height: 1.25;
+  color: #fff;
+  text-shadow: 2px 2px 0 #2a1a4a;
+  background: rgba(16, 0, 24, 0.95);
+  border: 3px solid;
+  border-image: linear-gradient(var(--purple-400), var(--purple-700)) 1;
+  box-shadow: 0 0 0 3px #000, 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: bubbleIn 0.25s cubic-bezier(.2, 1.6, .4, 1);
+  transform-origin: bottom left;
+}
+.helper-bubble[hidden] { display: none; }
+.helper-bubble::after {             /* little pixel tail */
+  content: "";
+  position: absolute;
+  left: 18px;
+  bottom: -12px;
+  width: 12px;
+  height: 12px;
+  background: rgba(16, 0, 24, 0.95);
+  box-shadow: 3px 3px 0 #000;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+@keyframes bubbleIn {
+  from { opacity: 0; transform: scale(0.6); }
+  to   { opacity: 1; transform: none; }
+}
+.helper-name {
+  font-family: var(--font-title);
+  font-size: 11px;
+  color: var(--purple-300);
+  margin-bottom: 6px;
+}
+.helper-text { min-height: 1.25em; }
+
+.helper-menu {
+  margin-top: 10px;
+  display: grid;
+  gap: 6px;
+}
+.helper-menu[hidden] { display: none; }
+.helper-menu button {
+  padding: 6px 8px;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: #fff;
+  background: #241544;
+  border: 2px solid #000;
+  box-shadow: inset 2px 2px 0 #3f2a78, inset -2px -2px 0 #120a24;
+  cursor: pointer;
+}
+.helper-menu button:hover,
+.helper-menu button:focus-visible { background: var(--purple-500); color: #ffffa0; outline: none; }
+
+/* Small button to bring the helper back */
+.helper-call {
+  position: fixed;
+  left: 12px;
+  bottom: 64px;
+  z-index: 26;
+  padding: 6px 10px;
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: #fff;
+  background: var(--purple-500);
+  border: 3px solid #000;
+  box-shadow: inset 2px 2px 0 var(--purple-300), inset -2px -2px 0 var(--purple-700);
+  cursor: pointer;
+}
+.helper-call[hidden] { display: none; }
+.helper-call:hover { background: var(--purple-400); color: #ffffa0; }
+
+@media (max-width: 640px) {
+  .helper { --s: 2; }
+  .helper-bubble { width: 220px; font-size: 17px; }
+}
+
+/* Required plugin (LuckPerms) box in the download popup */
+.required-dep {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  color: #fff;
+  text-decoration: none;
+  background: #0f1a0a;
+  border: 3px solid #000;
+  box-shadow: inset 0 0 0 2px #8fe000;
+  transition: transform 0.1s, background 0.15s;
+}
+.required-dep:hover { background: #17280e; transform: translateY(-2px); }
+.required-dep img { width: 48px; height: 48px; flex: none; }
+.required-text { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.required-name { font-size: 21px; color: #fff; }
+.required-badge {
+  margin-left: 6px;
+  padding: 0 6px;
+  font-size: 14px;
+  color: #000;
+  background: #ff5f6d;
+  border: 2px solid #000;
+  vertical-align: middle;
+}
+.required-desc { font-size: 17px; color: #cfe8b0; }
+.required-go {
+  flex: none;
+  padding: 6px 10px;
+  font-size: 18px;
+  color: #000;
+  background: #8fe000;
+  border: 2px solid #000;
+  box-shadow: inset -2px -2px 0 #5c9400;
+}
+.dialog-body a:not(.mc-btn):not(.required-dep) { color: #8fe000; }
