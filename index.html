@@ -96,11 +96,24 @@
         </div>
       </article>
 
-      <article class="card">
-        <div class="card-icon icon-heart"></div>
-        <h3>Plugin #2</h3>
-        <p>Something awesome is being built here.</p>
-        <span class="badge" data-tooltip="Coming Soon|Still in the crafting table...">Coming Soon</span>
+      <article class="card card-released">
+        <span class="ribbon">New</span>
+        <img class="card-cover" src="images/varatrade.png" alt="VaraTrade logo" loading="lazy" onerror="this.onerror=null;this.src='images/logo.jpg'" />
+        <h3>VaraTrade</h3>
+        <p>Safe player trading with items, XP, money and custom currencies.</p>
+        <div class="tags">
+          <span>v1.0.0</span>
+          <span>Spigot / Paper / Folia</span>
+          <span>1.20.6 - 1.21.x</span>
+        </div>
+        <div class="card-stats">
+          <span data-tooltip="Downloads|All versions of VaraTrade">&#11015; <b data-downloads="VaraTrade">&hellip;</b></span>
+          <button type="button" class="like-btn" data-like="VaraTrade" aria-pressed="false" aria-label="Like VaraTrade" data-tooltip="Like|Click the heart if you like VaraTrade"><span class="heart" aria-hidden="true"></span> <b data-likes="VaraTrade">&hellip;</b></button>
+        </div>
+        <div class="card-actions">
+          <button type="button" class="mc-btn mc-btn-small" data-open="varatrade-details" data-tooltip="Download|Choose your platform">Download</button>
+          <button type="button" class="mc-btn mc-btn-small mc-btn-alt" data-open="varatrade-details" data-scroll="vt-info" data-tooltip="Details|Features, commands &amp; permissions">Details</button>
+        </div>
       </article>
 
       <article class="card">
@@ -160,10 +173,10 @@
       <h4>2. Choose a version</h4>
       <label class="version-pick">
         <span class="sr-only">Plugin version</span>
-        <select id="vv-version"></select>
+        <select class="version-select"></select>
       </label>
 
-      <div class="platform-status" id="vv-status" aria-live="polite"></div>
+      <div class="platform-status" aria-live="polite"></div>
 
       <h4>3. Required plugin</h4>
       <a class="required-dep" href="https://modrinth.com/plugin/luckperms" target="_blank" rel="noopener" data-tooltip="LuckPerms|Opens Modrinth in a new tab">
@@ -176,7 +189,7 @@
       </a>
 
       <div class="dialog-download">
-        <a id="vv-download" class="mc-btn" href="#" download>Download</a>
+        <a class="mc-btn download-btn" href="#" download>Download</a>
       </div>
 
       <!-- Details -->
@@ -223,6 +236,136 @@
         <ul>
           <li>Paper or Purpur <b>1.21.x</b> (Java 21)</li>
           <li><b>LuckPerms</b> installed &mdash; <a href="https://modrinth.com/plugin/luckperms" target="_blank" rel="noopener">download it on Modrinth</a></li>
+        </ul>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- VaraTrade download + details popup -->
+  <dialog id="varatrade-details" class="mc-dialog" aria-labelledby="vt-title">
+    <div class="dialog-head">
+      <img class="dialog-cover" src="images/varatrade.png" alt="" onerror="this.onerror=null;this.src='images/logo.jpg'" />
+      <div>
+        <h3 id="vt-title">VaraTrade</h3>
+        <p class="dialog-sub">Safe trading for your Minecraft server</p>
+      </div>
+      <button type="button" class="dialog-close" aria-label="Close">&#10005;</button>
+    </div>
+
+    <div class="dialog-body">
+      <h4>1. Choose your platform</h4>
+      <div class="platforms" role="radiogroup" aria-label="Platform">
+        <button type="button" class="platform" role="radio" data-platform="paper">Paper</button>
+        <button type="button" class="platform" role="radio" data-platform="bukkit">Bukkit / Spigot</button>
+        <button type="button" class="platform" role="radio" data-platform="folia">Folia</button>
+        <button type="button" class="platform" role="radio" data-platform="fabric">Fabric</button>
+        <button type="button" class="platform" role="radio" data-platform="forge">Forge</button>
+        <button type="button" class="platform" role="radio" data-platform="neoforge">NeoForge</button>
+        <button type="button" class="platform" role="radio" data-platform="bungeecord">BungeeCord</button>
+        <button type="button" class="platform" role="radio" data-platform="velocity">Velocity</button>
+        <button type="button" class="platform" role="radio" data-platform="waterfall">Waterfall</button>
+      </div>
+
+      <h4>2. Choose a version</h4>
+      <label class="version-pick">
+        <span class="sr-only">Plugin version</span>
+        <select class="version-select"></select>
+      </label>
+
+      <div class="platform-status" aria-live="polite"></div>
+
+      <h4>3. Required plugins</h4>
+      <div class="dep-none">&#10004; None! VaraTrade works on its own.</div>
+
+      <h4>4. Optional plugins</h4>
+      <div class="dep-list">
+        <a class="required-dep optional-dep" href="https://www.spigotmc.org/resources/vault.34315/" target="_blank" rel="noopener" data-tooltip="Vault|Opens SpigotMC in a new tab">
+          <span class="dep-icon" aria-hidden="true">$</span>
+          <span class="required-text">
+            <span class="required-name">Vault <span class="required-badge optional-badge">Optional</span></span>
+            <span class="required-desc">Trade money from EssentialsX, CMI and most economy plugins.</span>
+          </span>
+          <span class="required-go">Get it &#10138;</span>
+        </a>
+        <a class="required-dep optional-dep" href="https://www.spigotmc.org/resources/playerpoints.80745/" target="_blank" rel="noopener" data-tooltip="PlayerPoints|Opens SpigotMC in a new tab">
+          <span class="dep-icon" aria-hidden="true">P</span>
+          <span class="required-text">
+            <span class="required-name">PlayerPoints <span class="required-badge optional-badge">Optional</span></span>
+            <span class="required-desc">Trade points as a currency.</span>
+          </span>
+          <span class="required-go">Get it &#10138;</span>
+        </a>
+        <a class="required-dep optional-dep" href="https://www.spigotmc.org/resources/placeholderapi.6245/" target="_blank" rel="noopener" data-tooltip="PlaceholderAPI|Opens SpigotMC in a new tab">
+          <span class="dep-icon" aria-hidden="true">%</span>
+          <span class="required-text">
+            <span class="required-name">PlaceholderAPI <span class="required-badge optional-badge">Optional</span></span>
+            <span class="required-desc">Custom currencies from ANY economy plugin + %varatrade_...% placeholders.</span>
+          </span>
+          <span class="required-go">Get it &#10138;</span>
+        </a>
+      </div>
+
+      <div class="dialog-download">
+        <a class="mc-btn download-btn" href="#" download>Download</a>
+      </div>
+
+      <!-- Details -->
+      <div id="vt-info">
+        <h4>About</h4>
+        <p>A lightweight but feature-rich trade plugin. Both players put in items and money, both click Ready, and after a short countdown everything is swapped safely. Pink &amp; white colors with small caps text, fully editable in the config.</p>
+
+        <h4>Features</h4>
+        <ul>
+          <li><b>All items supported</b> &mdash; even items with custom names, enchants and NBT</li>
+          <li><b>Multi-currency</b> &mdash; Experience (built in), Vault money, PlayerPoints</li>
+          <li><b>Custom currencies</b> with PlaceholderAPI &mdash; works with any economy plugin</li>
+          <li><b>Start trades easily</b> &mdash; Shift + right-click a player, or use /trade</li>
+          <li><b>Clickable [ACCEPT] / [DENY]</b> buttons in chat</li>
+          <li><b>Shulker &amp; barrel viewer</b> &mdash; right-click to look inside before you accept</li>
+          <li><b>Trade summaries</b> &mdash; see exactly what you gave and got</li>
+          <li><b>Trade history</b> &mdash; every trade is saved to daily log files</li>
+          <li><b>Blacklist</b> &mdash; block items, worlds and gamemodes</li>
+          <li><b>Number formatting</b> &mdash; type 1.5K or 10M, shown as compact or full numbers</li>
+          <li><b>Item names</b> &mdash; nice names in summaries, with your own translations</li>
+          <li><b>Dupe-safe</b> &mdash; offered items and money are held safely until the trade ends</li>
+          <li><b>Folia supported</b>, very light, doesn't affect TPS</li>
+          <li><b>Any client version</b> (ViaVersion) and <b>Bedrock</b> (Geyser) players can trade</li>
+        </ul>
+
+        <h4>Commands</h4>
+        <ul class="cmd-list">
+          <li><code>/trade &lt;player&gt;</code> <span>Send a trade request</span></li>
+          <li><code>/trade accept &lt;player&gt;</code> <span>Accept a trade request</span></li>
+          <li><code>/trade deny &lt;player&gt;</code> <span>Deny a trade request</span></li>
+          <li><code>/trade toggle</code> <span>Turn trade requests on/off</span></li>
+          <li><code>/trade help</code> <span>List commands</span></li>
+          <li><code>/trade reload</code> <span>Reload the config (admin)</span></li>
+          <li><code>/trade force &lt;player&gt; [player2]</code> <span>Force a trade (admin)</span></li>
+          <li><code>/trade preview</code> <span>Open the trade menu for testing (admin)</span></li>
+        </ul>
+        <p class="dialog-note">Also works as <code>/varatrade</code> and <code>/vtrade</code>.</p>
+
+        <h4>Permissions</h4>
+        <ul class="cmd-list">
+          <li><code>varatrade.trade</code> <span>Send / accept / deny requests &mdash; default: everyone</span></li>
+          <li><code>varatrade.toggle</code> <span>/trade toggle &mdash; default: everyone</span></li>
+          <li><code>varatrade.shiftclick</code> <span>Shift + right-click to trade &mdash; default: everyone</span></li>
+          <li><code>varatrade.admin</code> <span>reload, force, preview &mdash; default: OP</span></li>
+          <li><code>varatrade.bypass.blacklist</code> <span>Ignore the blacklist &mdash; default: OP</span></li>
+        </ul>
+
+        <h4>Placeholders</h4>
+        <ul class="cmd-list">
+          <li><code>%varatrade_active_trades%</code> <span>How many trades are going on</span></li>
+          <li><code>%varatrade_enabled%</code> <span>Does the player accept trade requests?</span></li>
+          <li><code>%varatrade_partner%</code> <span>The player's trade partner (empty if not trading)</span></li>
+          <li><code>%varatrade_trading%</code> <span>Is the player in a trade? true / false</span></li>
+        </ul>
+
+        <h4>Requirements</h4>
+        <ul>
+          <li>Spigot, Paper, Purpur or Folia <b>1.20.6 - 1.21.x</b> (Java 21)</li>
+          <li>No required plugins</li>
         </ul>
       </div>
     </div>

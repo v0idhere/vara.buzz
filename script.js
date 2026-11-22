@@ -352,152 +352,180 @@ window.addEventListener("resize", moveCart);
 moveCart();
 
 // =========================================================
-// VARAVAULTS DOWNLOAD PICKER (platform + version)
+// PLUGIN DOWNLOAD PICKERS (platform + version), one per plugin popup
 // =========================================================
-// To release a new version: add it at the TOP of "versions"
-// with a file for each platform that has a build.
-const VARAVAULTS = {
-  versions: [
-    {
-      id: "1.0.2",
-      label: "v1.0.2 (Latest) - Minecraft 1.21.x",
-      files: {
-        paper: "https://github.com/v0idhere/vara.buzz/releases/download/v1.0.2/VaraVaults-1.0.2-Paper.jar",
-      },
+// To release a new version: add it at the TOP of that plugin's "versions",
+// with a file for every platform that has a build.
+const GH_RELEASES = "https://github.com/v0idhere/vara.buzz/releases/download";
+const PLATFORM_NAMES = {
+  paper: "Paper", bukkit: "Bukkit / Spigot", folia: "Folia",
+  fabric: "Fabric", forge: "Forge", neoforge: "NeoForge",
+  bungeecord: "BungeeCord", velocity: "Velocity", waterfall: "Waterfall",
+};
+const PROXIES = ["bungeecord", "velocity", "waterfall"];
+const MOD_LOADERS = ["fabric", "forge", "neoforge"];
+
+const PLUGIN_DOWNLOADS = {
+  "varavaults-details": {
+    name: "VaraVaults",
+    serverWord: "Vaults live",
+    worksOn: {
+      paper: "Works on Paper, Purpur and other Paper forks. Needs <b>LuckPerms</b>.",
     },
-    {
-      id: "1.0.1",
-      label: "v1.0.1 - Minecraft 1.21.x",
-      files: {
-        paper: "https://github.com/v0idhere/vara.buzz/releases/download/v1.0.1/VaraVaults-1.0.1-Paper.jar",
+    versions: [
+      {
+        id: "1.0.2",
+        label: "v1.0.2 (Latest) - Minecraft 1.21.x",
+        files: { paper: `${GH_RELEASES}/v1.0.2/VaraVaults-1.0.2-Paper.jar` },
       },
+      {
+        id: "1.0.1",
+        label: "v1.0.1 - Minecraft 1.21.x",
+        files: { paper: `${GH_RELEASES}/v1.0.1/VaraVaults-1.0.1-Paper.jar` },
+      },
+    ],
+  },
+  "varatrade-details": {
+    name: "VaraTrade",
+    serverWord: "Trades happen",
+    worksOn: {
+      paper: "Works on Paper, Purpur and other Paper forks. No required plugins!",
+      bukkit: "Works on Bukkit and Spigot. No required plugins!",
+      folia: "Folia is fully supported. No required plugins!",
     },
-  ],
-  platforms: {
-    paper:      { name: "Paper",           kind: "ok" },
-    bukkit:     { name: "Bukkit / Spigot", kind: "soon" },
-    folia:      { name: "Folia",           kind: "soon" },
-    fabric:     { name: "Fabric",          kind: "mod" },
-    forge:      { name: "Forge",           kind: "mod" },
-    neoforge:   { name: "NeoForge",        kind: "mod" },
-    bungeecord: { name: "BungeeCord",      kind: "proxy" },
-    velocity:   { name: "Velocity",        kind: "proxy" },
-    waterfall:  { name: "Waterfall",       kind: "proxy" },
+    versions: [
+      {
+        id: "1.0.0",
+        label: "v1.0.0 (Latest) - Minecraft 1.20.6 - 1.21.x",
+        // One jar works on all three
+        files: {
+          paper: `${GH_RELEASES}/varatrade-v1.0.0/VaraTrade-1.0.0.jar`,
+          bukkit: `${GH_RELEASES}/varatrade-v1.0.0/VaraTrade-1.0.0.jar`,
+          folia: `${GH_RELEASES}/varatrade-v1.0.0/VaraTrade-1.0.0.jar`,
+        },
+      },
+    ],
   },
 };
 
-const vvPlatformBtns = document.querySelectorAll(".platform");
-const vvVersion = document.getElementById("vv-version");
-const vvStatus = document.getElementById("vv-status");
-const vvDownload = document.getElementById("vv-download");
-let vvPlatform = "paper";
+function liveTooltip(el) {
+  el.addEventListener("mouseenter", () => {
+    const [name, lore] = (el.dataset.tooltip || "").split("|");
+    tooltip.innerHTML = "";
+    const t = document.createElement("div");
+    t.textContent = name;
+    tooltip.appendChild(t);
+    if (lore) {
+      const l = document.createElement("div");
+      l.className = "lore";
+      l.textContent = lore;
+      tooltip.appendChild(l);
+    }
+    tooltip.classList.add("show");
+  });
+  el.addEventListener("mousemove", (e) => {
+    const w = tooltip.offsetWidth;
+    let x = e.clientX + 16;
+    if (x + w > window.innerWidth - 8) x = e.clientX - w - 16;
+    tooltip.style.left = x + "px";
+    tooltip.style.top = e.clientY - 30 + "px";
+  });
+  el.addEventListener("mouseleave", () => tooltip.classList.remove("show"));
+}
 
-// Fill the version dropdown
-VARAVAULTS.versions.forEach((v) => {
-  const opt = document.createElement("option");
-  opt.value = v.id;
-  opt.textContent = v.label;
-  vvVersion.appendChild(opt);
-});
+function setupPicker(dialog, cfg) {
+  const buttons = dialog.querySelectorAll(".platform");
+  const select = dialog.querySelector(".version-select");
+  const status = dialog.querySelector(".platform-status");
+  const download = dialog.querySelector(".download-btn");
+  if (!buttons.length || !select || !status || !download) return;
+  let current = "paper";
 
-function vvRender() {
-  const version = VARAVAULTS.versions.find((v) => v.id === vvVersion.value) || VARAVAULTS.versions[0];
-  const platform = VARAVAULTS.platforms[vvPlatform];
-  const file = version.files[vvPlatform];
-
-  // Small label under each platform button
-  vvPlatformBtns.forEach((btn) => {
-    const id = btn.dataset.platform;
-    const p = VARAVAULTS.platforms[id];
-    const has = !!version.files[id];
-    btn.classList.toggle("is-ok", has);
-    btn.classList.toggle("is-soon", !has && p.kind !== "proxy");
-    btn.classList.toggle("is-proxy", p.kind === "proxy");
-    btn.dataset.label = has ? "Available" : p.kind === "proxy" ? "Proxy" : "Coming soon";
-    btn.setAttribute("aria-checked", id === vvPlatform ? "true" : "false");
+  cfg.versions.forEach((v) => {
+    const opt = document.createElement("option");
+    opt.value = v.id;
+    opt.textContent = v.label;
+    select.appendChild(opt);
   });
 
-  vvDownload.classList.remove("is-disabled");
-  vvDownload.removeAttribute("aria-disabled");
-  vvDownload.onclick = null;
+  function render() {
+    const version = cfg.versions.find((v) => v.id === select.value) || cfg.versions[0];
+    const name = PLATFORM_NAMES[current];
+    const file = version.files[current];
 
-  if (file) {
-    const name = file.split("/").pop();
-    vvStatus.className = "platform-status ok";
-    vvStatus.innerHTML = `<b>Available!</b> Works on Paper, Purpur and other Paper forks. Needs <b>LuckPerms</b>.`;
-    vvDownload.href = file;
-    vvDownload.setAttribute("download", name);
-    vvDownload.textContent = "Download " + name;
-    vvDownload.dataset.tooltip = `Download|${name}`;
-  } else if (platform.kind === "proxy") {
-    vvStatus.className = "platform-status proxy";
-    vvStatus.innerHTML = `<b>${platform.name} is a proxy.</b> Vaults live on your game servers, so install the <b>Paper</b> version on each Paper server behind ${platform.name}.`;
-    vvDownload.removeAttribute("href");
-    vvDownload.removeAttribute("download");
-    vvDownload.textContent = "Get the Paper version";
-    vvDownload.dataset.tooltip = "Paper version|Switch to the Paper download";
-    vvDownload.onclick = (e) => {
-      e.preventDefault();
-      vvSelect("paper");
-    };
-  } else {
-    const why = platform.kind === "mod"
-      ? `${platform.name} is a mod loader, so it needs a mod version of VaraVaults.`
-      : `A ${platform.name} build of VaraVaults is being crafted.`;
-    const tip = vvPlatform === "bukkit"
-      ? " Tip: Paper runs all Bukkit & Spigot plugins, so you can switch to Paper today."
-      : "";
-    vvStatus.className = "platform-status soon";
-    vvStatus.innerHTML = `<b>Coming soon!</b> ${why}${tip}`;
-    vvDownload.removeAttribute("href");
-    vvDownload.removeAttribute("download");
-    vvDownload.classList.add("is-disabled");
-    vvDownload.setAttribute("aria-disabled", "true");
-    vvDownload.textContent = "Coming Soon";
-    vvDownload.dataset.tooltip = "Coming Soon|Not available for this platform yet";
-    vvDownload.onclick = (e) => e.preventDefault();
+    buttons.forEach((btn) => {
+      const id = btn.dataset.platform;
+      const has = !!version.files[id];
+      const proxy = PROXIES.includes(id);
+      btn.classList.toggle("is-ok", has);
+      btn.classList.toggle("is-soon", !has && !proxy);
+      btn.classList.toggle("is-proxy", proxy);
+      btn.dataset.label = has ? "Available" : proxy ? "Proxy" : "Coming soon";
+      btn.setAttribute("aria-checked", id === current ? "true" : "false");
+    });
+
+    download.classList.remove("is-disabled");
+    download.removeAttribute("aria-disabled");
+    download.onclick = null;
+
+    if (file) {
+      const fileName = file.split("/").pop();
+      status.className = "platform-status ok";
+      status.innerHTML = `<b>Available!</b> ${cfg.worksOn[current] || ""}`;
+      download.href = file;
+      download.setAttribute("download", fileName);
+      download.textContent = "Download " + fileName;
+      download.dataset.tooltip = `Download|${fileName}`;
+    } else if (PROXIES.includes(current)) {
+      status.className = "platform-status proxy";
+      status.innerHTML = `<b>${name} is a proxy.</b> ${cfg.serverWord} on your game servers, so install the <b>Paper</b> version on each server behind ${name}.`;
+      download.removeAttribute("href");
+      download.removeAttribute("download");
+      download.textContent = "Get the Paper version";
+      download.dataset.tooltip = "Paper version|Switch to the Paper download";
+      download.onclick = (e) => {
+        e.preventDefault();
+        select_("paper");
+      };
+    } else {
+      const why = MOD_LOADERS.includes(current)
+        ? `${name} is a mod loader, so it needs a mod version of ${cfg.name}.`
+        : `A ${name} build of ${cfg.name} is being crafted.`;
+      const tip = current === "bukkit" && version.files.paper
+        ? " Tip: Paper runs all Bukkit & Spigot plugins, so you can switch to Paper today."
+        : "";
+      status.className = "platform-status soon";
+      status.innerHTML = `<b>Coming soon!</b> ${why}${tip}`;
+      download.removeAttribute("href");
+      download.removeAttribute("download");
+      download.classList.add("is-disabled");
+      download.setAttribute("aria-disabled", "true");
+      download.textContent = "Coming Soon";
+      download.dataset.tooltip = "Coming Soon|Not available for this platform yet";
+      download.onclick = (e) => e.preventDefault();
+    }
   }
-}
 
-function vvSelect(id) {
-  vvPlatform = id;
-  vvRender();
-}
+  function select_(id) {
+    current = id;
+    render();
+  }
 
-vvPlatformBtns.forEach((btn) => {
-  btn.addEventListener("click", () => {
+  buttons.forEach((btn) => btn.addEventListener("click", () => {
     playClick();
-    vvSelect(btn.dataset.platform);
-  });
-});
-vvVersion.addEventListener("change", vvRender);
-vvRender();
+    select_(btn.dataset.platform);
+  }));
+  select.addEventListener("change", render);
+  liveTooltip(download);
+  render();
+}
 
-// Tooltip on the download button (its text changes, so read it live)
-vvDownload.addEventListener("mouseenter", () => {
-  const [name, lore] = (vvDownload.dataset.tooltip || "").split("|");
-  tooltip.innerHTML = "";
-  const t = document.createElement("div");
-  t.textContent = name;
-  tooltip.appendChild(t);
-  if (lore) {
-    const l = document.createElement("div");
-    l.className = "lore";
-    l.textContent = lore;
-    tooltip.appendChild(l);
-  }
-  tooltip.classList.add("show");
+Object.entries(PLUGIN_DOWNLOADS).forEach(([id, cfg]) => {
+  const dialog = document.getElementById(id);
+  if (dialog) setupPicker(dialog, cfg);
 });
-vvDownload.addEventListener("mousemove", (e) => {
-  const w = tooltip.offsetWidth;
-  let x = e.clientX + 16;
-  if (x + w > window.innerWidth - 8) x = e.clientX - w - 16;
-  tooltip.style.left = x + "px";
-  tooltip.style.top = e.clientY - 30 + "px";
-});
-vvDownload.addEventListener("mouseleave", () => tooltip.classList.remove("show"));
 
-// Open / close the popup
+// Open / close the popups
 document.querySelectorAll("[data-open]").forEach((btn) => {
   btn.addEventListener("click", () => {
     const dialog = document.getElementById(btn.dataset.open);
